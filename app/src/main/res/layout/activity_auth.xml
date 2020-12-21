@@ -88,20 +88,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bienvenidoTextView"
-        app:layout_constraintVertical_bias="0.563" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="153dp"
-        android:layout_height="45dp"
+        android:layout_width="147dp"
+        android:layout_height="43dp"
         android:layout_marginStart="32dp"
         android:text="@string/registrate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.429"
+        app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintVertical_bias="0.883" />
 
     <LinearLayout
         android:id="@+id/AuthLayout"
