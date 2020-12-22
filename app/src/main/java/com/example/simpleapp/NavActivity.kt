@@ -15,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.example.simpleapp.R.id
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -28,36 +29,33 @@ class NavActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(id.toolbar)
         setSupportActionBar(toolbar)
-        //////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+        val fab: FloatingActionButton = findViewById(id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            Snackbar.make(view, "Muy pronto", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val headerView= navView.getHeaderView(0)
-        //val navUsername: TextView = headerView.findViewById(R.id.emailTextView)
-        val navController = findNavController(R.id.nav_host_fragment)
-        val email: TextView= headerView.findViewById(R.id.emailTextView)
-        val username: String? = intent.getStringExtra("et_email")
-        email.setText(username)
-        val profile_image : ImageView = headerView.findViewById(R.id.imageView)
+        val drawerLayout = findViewById<DrawerLayout>(id.drawer_layout)
+        val navView = findViewById<NavigationView>(id.nav_view)
+        val headerView = navView.getHeaderView(0)
+        val navController = findNavController(id.nav_host_fragment)
+        val email = headerView.findViewById<TextView>(id.emailTextView)
+        val username = intent.getStringExtra("et_email")
+        val profileImage: ImageView = headerView.findViewById(id.imageView)
+        //Carga nombre y foto en el header del menu izquierdo
+        email.text = username
         currentUser?.let { user ->
             Glide.with(this)
                 .load(user.photoUrl)
-                .into(profile_image)
+                .into(profileImage)
         }
-        //val username: String? = this.intent?.extras?.getString("et_email")
-        //navUsername.setText(username);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_slideshow), drawerLayout)
+        //Fragmentos en el menu izquierdo
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                id.nav_home, id.nav_profile, id.nav_slideshow
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -70,7 +68,7 @@ class NavActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

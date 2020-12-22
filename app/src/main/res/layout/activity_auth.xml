@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.137" />
 
     <EditText
-        android:id="@+id/et_email"
+        android:id="@+id/etEmail"
         android:layout_width="213dp"
         android:layout_height="62dp"
         android:layout_marginBottom="12dp"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.319" />
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints=""
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
         app:layout_constraintVertical_bias="0.061" />
 
 
@@ -80,28 +80,26 @@
         app:srcCompat="@drawable/googleg_standard_color_18" />
 
     <Button
-        android:id="@+id/btn_logout"
+        android:id="@+id/btnLogout"
         android:layout_width="153dp"
-        android:layout_height="45dp"
+        android:layout_height="43dp"
         android:text="@string/iniciar_sesi_n"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bienvenidoTextView"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.534" />
 
     <Button
-        android:id="@+id/btn_register"
-        android:layout_width="147dp"
+        android:id="@+id/btnRegister"
+        android:layout_width="153dp"
         android:layout_height="43dp"
-        android:layout_marginStart="32dp"
         android:text="@string/registrate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.883" />
+        app:layout_constraintVertical_bias="0.88" />
 
     <LinearLayout
         android:id="@+id/AuthLayout"

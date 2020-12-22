@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
         //googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(argentina))
     }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,

@@ -8,7 +8,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="inicia_sesi_n">Inicia sesión</string>
     <string name="iniciar_sesi_n">Iniciar sesión</string>
@@ -24,11 +23,13 @@
     <string name="nombre">Nombre</string>
     <string name="name">Name</string>
     <string name="perfil">Perfil</string>
+    <string name="agregarLocal">Agregar local</string>
     <string name="mapa">Mapa</string>
     <string name="apellido">Apellido</string>
     <string name="casa_calle_barrio">Casa, calle, barrio</string>
     <string name="direccion">Dirección</string>
     <string name="guardar">Guardar</string>
+    <string name="ingresa">Ingresa una dirección</string>
     <string name="recuperar">Recuperar</string>
     <string name="avatar">Avatar</string>
     <string name="editarp">Editar perfil</string>
@@ -36,4 +37,7 @@
     <string name="title_activity_menu">menuActivity</string>
     <string name="no_tenes_cuenta">No tenes cuenta?</string>
     <string name="todo">TODO</string>
+    <string name="back">Back</string>
+    <string name="elegir_en_el_mapa">Elegir en el mapa</string>
+    <string name="search">search</string>
 </resources>

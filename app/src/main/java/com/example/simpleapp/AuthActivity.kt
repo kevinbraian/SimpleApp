@@ -19,51 +19,102 @@ import java.util.regex.Pattern.compile as compile1
 
 class AuthActivity : AppCompatActivity() {
     override fun onStart() {
-        val auth_layout = findViewById<LinearLayout>(R.id.AuthLayout)
+        val authLayout = findViewById<LinearLayout>(R.id.AuthLayout)
         super.onStart()
-        auth_layout.visibility = View.VISIBLE
+        authLayout.visibility = View.VISIBLE
     }
-
+    //Valider usuario y contraseña, deben no ser vacios, tener mayusculas, minusculas, numeros y un simbolo especial
     private fun validation(): Boolean {
-        val UpperCasePattern = compile1("[A-Z]")
-        val lowerCasePattern  = compile1("[a-z]")
+        val upperCasePattern = compile1("[A-Z]")
+        val lowerCasePattern = compile1("[a-z]")
         val digitCasePattern = compile1("[0-9]")
         val specialCharPattern = compile1("[/*!@#$%^&()¨{}|?<>]")
-        val et_email_name = findViewById<EditText>(R.id.et_email)
-        val et_password = findViewById<EditText>(R.id.et_password)
-        val email_name = et_email_name.text
-        val password = et_password.text
-        val caracteres = listOf('"', '\'', ',', 'ü', 'Ü', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', '\n', '\r')
+        val etEmailName = findViewById<EditText>(R.id.etEmail)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val emailName = etEmailName.text
+        val password = etPassword.text
+        val characters = listOf(
+            '"',
+            '\'',
+            ',',
+            'ü',
+            'Ü',
+            'á',
+            'é',
+            'í',
+            'ó',
+            'ú',
+            'Á',
+            'É',
+            'Í',
+            'Ó',
+            'Ú',
+            '\n',
+            '\r'
+        )
         val flag = true
-
-        if (email_name.isEmpty() or password.isEmpty()) {
-            Toast.makeText(this@AuthActivity, "el usuario y/o contraseña no debe estar vacio", Toast.LENGTH_SHORT).show()
+        //vacio?
+        if (emailName.isEmpty() or password.isEmpty()) {
+            Toast.makeText(
+                this@AuthActivity,
+                "el usuario y/o contraseña no debe estar vacio",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
-        if ((email_name.length < 8) or (password.length < 8)) {
-            Toast.makeText(this@AuthActivity, "El usuario y/o contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
+        //mayor a 8 caracteres?
+        if ((emailName.length < 8) or (password.length < 8)) {
+            Toast.makeText(
+                this@AuthActivity,
+                "El usuario y/o contraseña debe tener al menos 8 caracteres",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
-        for (x in caracteres.indices) {
-            if ((email_name.indexOf(caracteres[x]) != -1) or (password.indexOf(caracteres[x]) != -1)) {
-                Toast.makeText(this@AuthActivity, "El usuario no puede tener los siguientes caracteres : Comillas, punto y coma, diéresis, tildes, escapes", Toast.LENGTH_SHORT).show()
+        for (x in characters.indices) {
+            if ((emailName.indexOf(characters[x]) != -1) or (password.indexOf(characters[x]) != -1)) {
+                Toast.makeText(
+                    this@AuthActivity,
+                    "El usuario no puede tener los siguientes caracteres : Comillas, punto y coma, diéresis, tildes, escapes",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return false
             }
         }
-        if (!UpperCasePattern.matcher(password).find()) {
-            Toast.makeText(this@AuthActivity, "La contraseña debe tener una mayúscula", Toast.LENGTH_SHORT).show()
+        //Mayusculas
+        if (!upperCasePattern.matcher(password).find()) {
+            Toast.makeText(
+                this@AuthActivity,
+                "La contraseña debe tener una mayúscula",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
+        //Minusculas
         if (!lowerCasePattern.matcher(password).find()) {
-            Toast.makeText(this@AuthActivity, "La contraseña debe tener una minúscula", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@AuthActivity,
+                "La contraseña debe tener una minúscula",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
+        //Numeros
         if (!digitCasePattern.matcher(password).find()) {
-            Toast.makeText(this@AuthActivity, "La contraseña debe tener un número", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@AuthActivity,
+                "La contraseña debe tener un número",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
+        //Simbolo especial
         if (!specialCharPattern.matcher(password).find()) {
-            Toast.makeText(this@AuthActivity, "La contraseña debe tener un caracter especial", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@AuthActivity,
+                "La contraseña debe tener un caracter especial",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
         return flag
@@ -72,84 +123,90 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
+        //Google Analytics
         val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val bundle = Bundle()
         analytics.logEvent("InitScreen", bundle)
 
-        /////////////////////////////
-        title = "Autenticación"
+        title = "Bienvenido"
 
-        val et_email_name = findViewById<EditText>(R.id.et_email)
-        val et_password = findViewById<EditText>(R.id.et_password)
-        val btn_submit = findViewById<Button>(R.id.btn_logout)
-        val btn_register = findViewById<Button>(R.id.btn_register)
-        val btn_google = findViewById<Button>(R.id.googleButton)
-        val GOOGLE_SIGN_IN = 1
-
-        btn_google.setOnClickListener {
+        val etEmailName = findViewById<EditText>(R.id.etEmail)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val btnSubmit = findViewById<Button>(R.id.btnLogout)
+        val btnRegister = findViewById<Button>(R.id.btnRegister)
+        val btnGoogle = findViewById<Button>(R.id.googleButton)
+        val googleSignIn = 1
+        //Iniciar con Google
+        btnGoogle.setOnClickListener {
             //Configuracion
             val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail().build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build()
 
             val googleClient = GoogleSignIn.getClient(this, googleConf)
             googleClient.signOut()
-            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+            startActivityForResult(googleClient.signInIntent, googleSignIn)
             session()
         }
+        //Iniciar sesion
+        btnSubmit.setOnClickListener {
+            val emailName = etEmailName.text
+            val user = emailName.toString()
+            val password = etPassword.text
+            if (validation()) {
+                getInstance().signInWithEmailAndPassword(emailName.toString(), password.toString())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(
+                                this@AuthActivity,
+                                getString(R.string.logsucc),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showNavHome(user)
+                        } else {
 
-        btn_submit.setOnClickListener {
-            val email_name = et_email_name.text
-            val user = email_name.toString()
-            val password = et_password.text
-            if (validation()){
-                getInstance().signInWithEmailAndPassword(email_name.toString(), password.toString()).addOnCompleteListener{
-                    if (it.isSuccessful) {
-                        Toast.makeText(this@AuthActivity, getString(R.string.logsucc), Toast.LENGTH_SHORT).show()
-                        showNavHome(user)
-                    } else {
-
-                        showAlert()
+                            showAlert()
+                        }
                     }
-                }
             }
             //Se logueara el usuario, si existe lo lleva al Home, si no, lo notifica.
         }
-
-        btn_register.setOnClickListener {
-            val email_name = et_email_name.text
-            val user = email_name.toString()
-            val password = et_password.text
+        //Registrarse
+        btnRegister.setOnClickListener {
+            val emailName = etEmailName.text
+            val user = emailName.toString()
+            val password = etPassword.text
             if (validation()) {
-                //if (validation(password.toString())) {
-
                 //Se creara el usuario
-                getInstance().createUserWithEmailAndPassword(user, password.toString()).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(this@AuthActivity, "Register Successful", Toast.LENGTH_SHORT).show()
-                        showNavHome(user)
-                    } else {
-                        this.showAlert()
+                getInstance().createUserWithEmailAndPassword(user, password.toString())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(
+                                this@AuthActivity,
+                                "Register Successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showNavHome(user)
+                        } else {
+                            this.showAlert()
+                        }
                     }
-                }
             }
         }
 
 
     }
-
+    //Pasa a la actividad nav
     private fun session() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE)
-        val user = prefs.getString("et_email_name", null)
+        val user = prefs.getString("etEmailName", null)
         if (user != null) {
-            val auth_layout = findViewById<LinearLayout>(R.id.AuthLayout)
-            auth_layout.visibility = View.INVISIBLE
+            val authLayout = findViewById<LinearLayout>(R.id.AuthLayout)
+            authLayout.visibility = View.INVISIBLE
             showNavHome(user)
         }
     }
-
-    /////////////////////////////////////////////////
+    //Mensaje de error
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
@@ -158,19 +215,17 @@ class AuthActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-    /////////////////////////////
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val GOOGLE_SIGN_IN = 1
-        if (requestCode == GOOGLE_SIGN_IN) {
+        val googleSignIn = 1
+        if (requestCode == googleSignIn) {
 
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
             try {
-                val user = findViewById<EditText>(R.id.et_email).text.toString()
+                val user = findViewById<EditText>(R.id.etEmail).text.toString()
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
@@ -190,9 +245,9 @@ class AuthActivity : AppCompatActivity() {
     }
 
 
-    private fun showNavHome(et_email_name: String) {
+    private fun showNavHome(etEmailName: String) {
         val homeIntent = Intent(this, NavActivity::class.java).apply {
-            putExtra("et_email", et_email_name)
+            putExtra("et_email", etEmailName)
         }
         this.startActivity(homeIntent)
     }
