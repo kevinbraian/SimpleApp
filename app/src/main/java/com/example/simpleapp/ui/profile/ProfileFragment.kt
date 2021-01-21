@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
         val username: String? = activity?.intent?.extras?.getString("et_email")
         val emailTextView = view.findViewById<TextView>(R.id.emailTextView)
         val nombreTextView = view.findViewById<TextView>(R.id.nameTextView)
-        val apellidoTextView = view.findViewById<TextView>(R.id.apellidoTextView)
+        val apellidoTextView = view.findViewById<TextView>(R.id.websitephoneTextView)
         val addressTextView = view.findViewById<TextView>(R.id.addressTextView)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val btnSave = view.findViewById<Button>(R.id.btnSave)
